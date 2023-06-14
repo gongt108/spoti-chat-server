@@ -1,0 +1,22 @@
+{
+  "name": "mongoose-app",
+  "version": "1.0.0",
+  "description": "Create Express API using Mongoose and more ...",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node app.js",
+    "dev": "nodemon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^8.0.2",
+    "express": "^4.18.2",
+    "jest": "^29.5.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^7.2.4",
+    "supertest": "^6.3.3"
+  }
+}
