@@ -29,7 +29,7 @@ function createRandomUser() {
             streetAddress: faker.location.streetAddress(),
             city: faker.location.city(),
             state: faker.location.state(),
-            zipCode: faker.location.zipCode()
+            zipCode: faker.location.zipCode('#####')
         },
         number: faker.phone.number()
     }
