@@ -28,13 +28,13 @@ db.on('error', (err) => {
 });
 
 // create a user and save to the DB
-User.create(createRandomUser())
-.then((user) => {
-    console.log('create user',user);
-})
-.catch((error) => {
-    console.log('error', error);
-});
+// User.create(createRandomUser())
+// .then((user) => {
+//     console.log('create user',user);
+// })
+// .catch((error) => {
+//     console.log('error', error);
+// });
 
 // create 100 users
 // for (let i = 0; i < 100; i++) {
@@ -46,3 +46,15 @@ User.create(createRandomUser())
 //         console.log('error', error);
 //     });
 // }
+
+User.findOne({ email: 'Dais.Steuber@yahoo.com' })
+.then(user => {
+    if (user) {
+        res.json({ user })
+    } else {
+        console.log('user does not exist')
+    }
+})
+.catch(error => {
+    console.log('error', error);
+})
