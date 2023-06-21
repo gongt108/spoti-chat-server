@@ -122,19 +122,19 @@ app.put('/users/:id', (req, res) => {
     }
     // check streetAddress
     if (req.body.streetAddress) {
-        updateQuery.streetAddress = req.body.streetAddress
+        updateQuery["address.streetAddress"] = req.body.streetAddress
     }
     // check city
     if (req.body.city) {
-        updateQuery.city = req.body.city
+        updateQuery["address.city"] = req.body.city
     }
     // check state
     if (req.body.state) {
-        updateQuery.state = req.body.state
+        updateQuery["address.state"] = req.body.state
     }
     // check zipCode
     if (req.body.zipCode) {
-        updateQuery.zipCode = req.body.zipCode
+        updateQuery["address.zipCode"]  = req.body.zipCode
     }
     // check number
     if (req.body.number) {
