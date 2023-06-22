@@ -9,6 +9,7 @@ const app = express();
 // middleware
 app.use(express.urlencoded({ extended: false }));
 
+app.use('/posts', require('./controllers/posts'));
 app.use('/users', require('./controllers/users'));
 
 const PORT = process.env.PORT || 8000;
