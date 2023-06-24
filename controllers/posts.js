@@ -20,6 +20,33 @@ router.get('/', (req, res) => {
         });
 });
 
+// GET route to find a comment - first need to find the post (id) and then find comment (id)
+router.get('/:id/comments/:commentId', (req, res) => {
+    console.log('route to get comment', req.params); // { id: 'aklsdjfkalsd', commentId: 'aldmsfaldkmfalkmdf' }
+    // find the post
+    Post.findById(req.params.id)
+    .then(post => {
+        if (!post) {
+            console.log('post cannot be found');
+            return res.json({ message: 'Post cannot be found'});
+        }
+        // find comment by id
+        const comment = post.comments.id(req.params.commentId); // not sure that works?
+        console.log('---- find comment ----', comment);
+
+        if (!comment) {
+            console.log('comment cannot be found');
+            return res.json({ message: 'Comment cannot be found'});
+        }
+        // return the comment to the user
+        return res.json({ comment }); // res.json({ comment: comment })
+    })
+    .catch(error => {
+        console.log('error', error);
+        return res.json({ message: 'Comment was not found try again...'})
+    });
+});
+
 // GET route for /posts/:id
 router.get('/:id', (req, res) => {
     Post.findById(req.params.id)
