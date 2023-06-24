@@ -114,4 +114,15 @@ router.post('/:id/comments/new', (req, res) => {
         });
 });
 
+// find the post
+// find the comment
+// update the comment
+// print to see if it updated
+// create a request in Postman
+// if it's update, then need return as json
+
+// PUT to update comment
+
+// DELETE to remove comment
+
 module.exports = router;

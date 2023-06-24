@@ -5,7 +5,7 @@ const { faker } = require('@faker-js/faker');
 const { createRandomUser } = require('./utils');
 
 // import our models
-const { User, Post } = require('./models');
+const { User, Post, Order, Product } = require('./models');
 
 console.log('mongo uri =>', process.env.MONGO_URI);
 // connect to the database
@@ -74,23 +74,23 @@ db.on('error', (err) => {
 // })
 
 // Find post by id and add comment
-Post.findById('6493d27d903a15a0c1662c3e')
-.then((post) => {
-    if (post) {
-        // add a comment to the post
-        const newComment = { username: 'jackrecher', header: 'nice', body: 'Where at?' }
-        post.comments.push(newComment);
-        // save the post 
-        post.save()
-        .then(result => {
-            console.log('After comment is saved', result);
-        })
-        .catch(error => console.log('error', error));
-    } else {
-        console.log('did not find post');
-    }
-})
-.catch(error => console.log('error', error));
+// Post.findById('6493d27d903a15a0c1662c3e')
+// .then((post) => {
+//     if (post) {
+//         // add a comment to the post
+//         const newComment = { username: 'jackrecher', header: 'nice', body: 'Where at?' }
+//         post.comments.push(newComment);
+//         // save the post 
+//         post.save()
+//         .then(result => {
+//             console.log('After comment is saved', result);
+//         })
+//         .catch(error => console.log('error', error));
+//     } else {
+//         console.log('did not find post');
+//     }
+// })
+// .catch(error => console.log('error', error));
 
 
 // Updating a comment inside of a post
@@ -113,19 +113,49 @@ Post.findById('6493d27d903a15a0c1662c3e')
 // .catch(error => console.log('error', error));
 
 // delete a comment inside of a post
-Post.findById('6493d27d903a15a0c1662c3e')
-.then((post) => {
-    if (post) {
-        // find the comment by the id and remove
-        post.comments.id('6493d5195db1f2b5fe7392b6').deleteOne()
+// Post.findById('6493d27d903a15a0c1662c3e')
+// .then((post) => {
+//     if (post) {
+//         // find the comment by the id and remove
+//         post.comments.id('6493d5195db1f2b5fe7392b6').deleteOne()
         
-        post.save()
-        .then(result => {
-            console.log('removed comment', result);
-        })
-        .catch(error => console.log('error deleting subdocument', error));
-    } else {
-        console.log('post does not exist.');
-    }
+//         post.save()
+//         .then(result => {
+//             console.log('removed comment', result);
+//         })
+//         .catch(error => console.log('error deleting subdocument', error));
+//     } else {
+//         console.log('post does not exist.');
+//     }
+// })
+// .catch(error => console.log('error', error));
+
+// create a new order
+Order.create({
+    buyer: 'Issac',
+    trackingNumber: '384939xciosd02392',
 })
-.catch(error => console.log('error', error));
+.then(order => {
+    console.log('new order', order);
+    // add products to order
+    order.products.push('649747b45845267e021fedce', '649747b45845267e021fedc9');
+    // save the order
+    order.save()
+    .then(updatedOrder => {
+        console.log('order updated', updatedOrder);
+        // print the actual product inside order
+        updatedOrder.populate('products')
+        .then(result => {
+            console.log('order with products', result);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    })
+    .catch(error => {
+        console.log(error);
+    })
+})
+.catch(error => {
+    console.log(error);
+})
