@@ -9,10 +9,12 @@ router.get('/', (req, res) => {
     User.find({})
         .then((users) => {
             console.log('users', users);
+            res.header("Access-Control-Allow-Origin", "*");
             res.json({ users: users });
         })
         .catch((error) => {
             console.log('error', error);
+            res.header("Access-Control-Allow-Origin", "*");
             res.json({ message: 'There was an issue, please try again...' });
         });
 });
@@ -26,20 +28,24 @@ router.get('/:field/:value', (req, res) => {
         User.find({ "address.zipCode": zipCode })
             .then((users) => {
                 console.log('users', users);
+                res.header("Access-Control-Allow-Origin", "*");
                 return res.json({ users: users });
             })
             .catch((error) => {
                 console.log('error', error);
+                res.header("Access-Control-Allow-Origin", "*");
                 res.json({ message: 'There was an issue, please try again...' });
             });
     } else if (req.params.field === 'email' || req.params.field === 'Email') {
         User.find({ email: req.params.value })
             .then((user) => {
                 console.log('user', user);
+                res.header("Access-Control-Allow-Origin", "*");
                 return res.json({ user: user });
             })
             .catch((error) => {
                 console.log('error', error);
+                res.header("Access-Control-Allow-Origin", "*");
                 res.json({ message: 'There was an issue, please try again...' });
             });
     }
@@ -55,6 +61,7 @@ router.post('/new', (req, res) => {
             // check to see if user exist in database
             if (user) {
                 // return a message saying user exist
+                res.header("Access-Control-Allow-Origin", "*");
                 res.json({ message: `${user.email} already exists. Please try again` });
             } else {
                 // create a user
@@ -72,17 +79,19 @@ router.post('/new', (req, res) => {
                 })
                     .then((newUser) => {
                         console.log('new user created ->', newUser);
-
+                        res.header("Access-Control-Allow-Origin", "*");
                         return res.json({ user: newUser });
                     })
                     .catch((error) => {
                         console.log('error', error);
+                        res.header("Access-Control-Allow-Origin", "*");
                         return res.json({ message: 'error occured, please try again.' });
                     });
             }
         })
         .catch((error) => {
             console.log('error', error);
+            res.header("Access-Control-Allow-Origin", "*");
             return res.json({ message: 'error occured, please try again.' });
         });
 });
