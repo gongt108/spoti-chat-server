@@ -1,6 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 // import all models
+const Game = require('./game');
 
 console.log('mongo uri =>', process.env.MONGO_URI);
 
@@ -23,4 +24,6 @@ db.on('error', (err) => {
     console.log(`Database error: `, err);
 });
 
-module.exports = {}
+module.exports = {
+    Game,
+}
