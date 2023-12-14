@@ -101,6 +101,24 @@ Game.findByIdAndUpdate('65795370d71fef4ae34361b5', { title: 'Street Fighter' })
     Game.findById('65795370d71fef4ae34361b5')
     .then(game => {
         console.log('--- find updated game title using ObjectId ---\n', game);
+
+        /**
+         - update title of game
+         --- find updated game price using ObjectId ---
+        {
+            _id: new ObjectId("657953b50c74a404abd3915d"),
+            title: 'Mortal Kombat',
+            rating: 5,
+            releaseYear: 1992,
+            genre: 'fighting',
+            price: 89,
+            publisher: 'Midway',
+            createdAt: 2023-12-13T06:48:21.515Z,
+            updatedAt: 2023-12-14T03:44:31.772Z,
+            __v: 0
+        }
+         * 
+        */
     })
     .catch(error => {
         console.log('--- error on update ---\n', error);
