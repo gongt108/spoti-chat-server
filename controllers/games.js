@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => { /* what goes inside function */ });
 router.get('/search', (req, res) => { /* what goes inside function */ });
 
 // --------------------------------------------------------
-// POST /games/search - create one game and return new game
+// POST /games/new - create one game and return new game
 // --------------------------------------------------------
 router.post('/new', (req, res) => { /* what goes inside function */ });
 
