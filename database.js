@@ -40,13 +40,13 @@ const {
 // ------------------------------------
 // READ: find all games 
 // ------------------------------------
-// Game.find({})
-// .then(games => {
-//     console.log('--- games ---\n', games);
-// })
-// .catch(error => {
-//     console.log('--- read all games error ---\n', error);
-// });
+Game.find({})
+.then(games => {
+    console.log('--- games ---\n', games);
+})
+.catch(error => {
+    console.log('--- read all games error ---\n', error);
+});
 
 // ------------------------------------
 // READ: find all games released in 2024
@@ -95,54 +95,71 @@ const {
 // ----------------------------------------------
 // Update: find one game by ObjectId - update title
 // ----------------------------------------------
-Game.findByIdAndUpdate('65795370d71fef4ae34361b5', { title: 'Street Fighter' })
-.then(result => {
-    // go back to the database and find the Game by id
-    Game.findById('65795370d71fef4ae34361b5')
-    .then(game => {
-        console.log('--- find updated game title using ObjectId ---\n', game);
+// Game.findByIdAndUpdate('65795370d71fef4ae34361b5', { title: 'Street Fighter' })
+// .then(result => {
+//     // go back to the database and find the Game by id
+//     Game.findById('65795370d71fef4ae34361b5')
+//     .then(game => {
+//         console.log('--- find updated game title using ObjectId ---\n', game);
 
-        /**
-         - update title of game
-         --- find updated game price using ObjectId ---
-        {
-            _id: new ObjectId("657953b50c74a404abd3915d"),
-            title: 'Mortal Kombat',
-            rating: 5,
-            releaseYear: 1992,
-            genre: 'fighting',
-            price: 89,
-            publisher: 'Midway',
-            createdAt: 2023-12-13T06:48:21.515Z,
-            updatedAt: 2023-12-14T03:44:31.772Z,
-            __v: 0
-        }
-         * 
-        */
-    })
-    .catch(error => {
-        console.log('--- error on update ---\n', error);
-    });
-})
-.catch(error => {
-    console.log('--- error on update ---\n', error);
-});
+//         /**
+//          - update title of game
+//          --- find updated game price using ObjectId ---
+//         {
+//             _id: new ObjectId("657953b50c74a404abd3915d"),
+//             title: 'Mortal Kombat',
+//             rating: 5,
+//             releaseYear: 1992,
+//             genre: 'fighting',
+//             price: 89,
+//             publisher: 'Midway',
+//             createdAt: 2023-12-13T06:48:21.515Z,
+//             updatedAt: 2023-12-14T03:44:31.772Z,
+//             __v: 0
+//         }
+//          * 
+//         */
+//     })
+//     .catch(error => {
+//         console.log('--- error on update ---\n', error);
+//     });
+// })
+// .catch(error => {
+//     console.log('--- error on update ---\n', error);
+// });
 
 // ----------------------------------------------
 // Update: find one game by title - update price
 // ----------------------------------------------
-Game.findOneAndUpdate({ title: 'Mortal Kombat' }, { price: 89 })
+// Game.findOneAndUpdate({ title: 'Mortal Kombat' }, { price: 89 })
+// .then(result => {
+//     // go back to the database and find the Game by Object
+//     Game.findById(result._id)
+//     .then(game => {
+//         console.log('--- find updated game price using ObjectId ---\n', game);
+//     })
+//     .catch(error => {
+//         console.log('--- error on update ---\n', error);
+//     });
+// })
+// .catch(error => {
+//     console.log('--- error on update ---\n', error);
+// });
+
+// 657506e161b1d1b53aa0ff17
+// REMOVE GAME(s)
+// ----------------------------------------------
+// DELETE: remove one game by ObjectId 
+// ----------------------------------------------
+Game.findByIdAndRemove('657506e161b1d1b53aa0ff17')
 .then(result => {
-    // go back to the database and find the Game by Object
-    Game.findById(result._id)
-    .then(game => {
-        console.log('--- find updated game price using ObjectId ---\n', game);
-    })
-    .catch(error => {
-        console.log('--- error on update ---\n', error);
-    });
+    console.log('--- remove game by ObjectId ---\n', result);
+    /**
+     * remove game
+     --- remove game by ObjectId ---
+    null
+    */
 })
 .catch(error => {
-    console.log('--- error on update ---\n', error);
+    console.log('--- ERROR removing game by ObjectId ---\n', error);
 });
-
