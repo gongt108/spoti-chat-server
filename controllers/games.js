@@ -34,7 +34,7 @@ router.post('/new', (req, res) => { /* what goes inside function */ });
 // --------------------------------------------------------
 // PUT /games/:id - update game by using ObjectId
 // --------------------------------------------------------
-router.post('/:id', (req, res) => { /* what goes inside function */ });
+router.put('/:id', (req, res) => { /* what goes inside function */ });
 
 // --------------------------------------------------------------------------------
 // DELETE /games/:id - remove game by using ObjectId and return back to all games
