@@ -16,6 +16,8 @@ app.get('/', (req, res) => {
     return res.json({ message: 'Welcome to my Facebook App' });
 });
 
+app.use('/games', require('./controllers/games'));
+
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`Server connected to PORT: ${PORT}`);
