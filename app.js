@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/games', require('./controllers/games'));
+/* TODO: import /videos here */ 
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

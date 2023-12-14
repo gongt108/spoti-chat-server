@@ -1,0 +1,1 @@
+const mongoose = require('mongoose'); // odm - object document mapper
