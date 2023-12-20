@@ -23,6 +23,7 @@ app.get('/', (req, res) => {
 
 // import controllers
 app.use('/posts', require('./controllers/posts'));
+app.use('/users', require('./controllers/users'));
 
 app.post('/refresh', (req, res) => {
 	const refreshToken = req.body.refreshToken;

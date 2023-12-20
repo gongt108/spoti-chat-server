@@ -1,9 +1,11 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
+
 // import all models
+const User = require('./users');
 const Post = require('./posts');
 
-console.log('mongo uri =>', process.env.MONGO_URI);
+// console.log('mongo uri =>', process.env.MONGO_URI);
 
 // connect to the database
 mongoose.connect(process.env.MONGO_URI, {
@@ -29,6 +31,8 @@ db.on('error', (err) => {
 	console.log(`Database error: `, err);
 });
 
+// export models
 module.exports = {
+	User,
 	Post,
 };
