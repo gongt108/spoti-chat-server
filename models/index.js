@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 // import all models
 const User = require('./users');
 const Post = require('./posts');
+const Favorite = require('./favorites');
 
 // console.log('mongo uri =>', process.env.MONGO_URI);
 
@@ -35,4 +36,5 @@ db.on('error', (err) => {
 module.exports = {
 	User,
 	Post,
+	Favorite,
 };

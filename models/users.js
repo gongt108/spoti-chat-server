@@ -24,6 +24,7 @@ let userSchema = new mongoose.Schema(
 		},
 		bio: String,
 		dateOfBirth: String,
+		searchHistory: Array,
 	},
 	{ timestamps: true }
 );

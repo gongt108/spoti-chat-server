@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
-let postSchema = new mongoose.Schema(
+let favoriteSchema = new mongoose.Schema(
 	{
 		userId: String,
 		trackName: String,
 		albumName: String,
 		artistName: String,
-		postType: String,
+		favoriteType: String,
 		spotifyId: String,
 		content: String,
 		imgUrl: String,
@@ -14,5 +14,5 @@ let postSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-const Post = mongoose.model('Post', postSchema);
-module.exports = Post;
+const Favorite = mongoose.model('Favorite', favoriteSchema);
+module.exports = Favorite;
