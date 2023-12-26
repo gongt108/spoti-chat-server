@@ -1,19 +1,15 @@
 const mongoose = require('mongoose');
 
-let friendSchema = new mongoose.Schema(
-	{
-		userId: {
-			type: String,
-			required: true,
-		},
-		name: {
-			type: String,
-			required: true,
-		},
-		imgUrl: String,
+let friendSchema = new mongoose.Schema({
+	user1: {
+		type: String,
+		required: true,
 	},
-	{ timestamps: true }
-);
+	user2: {
+		type: String,
+		required: true,
+	},
+});
 
 const Friend = mongoose.model('Friend', friendSchema);
 
