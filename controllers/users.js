@@ -43,7 +43,7 @@ router.get('/:id/allFriends', async (req, res) => {
 });
 
 // GET all favs
-router.get('/:id/allFavs', async (req, res) => {
+router.get('/:id/bookmarks', async (req, res) => {
 	try {
 		const foundUser = await User.findById(req.params.id);
 		if (!foundUser) return res.json({ message: 'User not found' });
