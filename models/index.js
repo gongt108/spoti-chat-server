@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 
 // import all models
 const User = require('./users');
-const Post = require('./posts');
 const Favorite = require('./favorites');
+const Friend = require('./friends');
+const Post = require('./posts');
 
 // console.log('mongo uri =>', process.env.MONGO_URI);
 
@@ -37,4 +38,5 @@ module.exports = {
 	User,
 	Post,
 	Favorite,
+	Friend,
 };

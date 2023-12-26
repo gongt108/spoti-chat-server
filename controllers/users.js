@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { User } = require('../models');
+const { User, Favorite } = require('../models');
+// const Favorite = require('../models');
 
 // Get ALL Users
 router.get('/', async (req, res) => {
@@ -34,9 +35,31 @@ router.post('/signup', async (req, res) => {
 			password: req.body.password,
 			bio: req.body.bio,
 			dateOfBirth: req.body.dateOfBirth,
+			friends: [],
+			favorites: [],
 		});
 
 		res.send(newUser);
+	} catch (error) {
+		console.error(error);
+	}
+});
+
+router.post('/:id/favSave', async (req, res) => {
+	try {
+		const foundUser = await User.findById(req.params.id);
+		if (!foundUser) return res.json({ message: 'User not found' });
+
+		const newFavorite = await Favorite.create({
+			// userId: req.body.id,
+			favoriteType: req.body.favoriteType,
+			spotifyId: req.body.spotifyId, // get from API link
+			name: req.body.name,
+			imgUrl: req.body.imgUrl,
+		});
+		foundUser.favorites = [...foundUser.favorites, newFavorite._id];
+		await foundUser.save();
+		res.send(foundUser);
 	} catch (error) {
 		console.error(error);
 	}

@@ -55,6 +55,18 @@ router.post('/new', async (req, res) => {
 	}
 });
 
+router.put('/:id', async (req, res) => {
+	try {
+		const foundFavorite = await Favorite.findByIdAndUpdate(req.params.id, {
+			content: req.body.content,
+		});
+		const updatedFavorite = await Favorite.findById(foundFavorite._id);
+		res.send(updatedFavorite);
+	} catch (error) {
+		console.error(error);
+	}
+});
+
 // PUT update favorite by ObjectId
 router.put('/:id', async (req, res) => {
 	try {

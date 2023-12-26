@@ -24,10 +24,35 @@ let userSchema = new mongoose.Schema(
 		},
 		bio: String,
 		dateOfBirth: String,
-		searchHistory: Array,
+		searchHistory: [String],
+		favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Favorite' }],
 	},
 	{ timestamps: true }
 );
 
+// let favoriteSchema = new mongoose.Schema(
+// 	{
+// 		// userId: {
+// 		// 	type: String,
+// 		// 	required: true,
+// 		// },
+// 		name: {
+// 			type: String,
+// 			required: true,
+// 		},
+// 		favoriteType: {
+// 			type: String,
+// 			required: true,
+// 		},
+// 		spotifyId: {
+// 			type: String,
+// 			required: true,
+// 		},
+// 		imgUrl: String,
+// 	},
+// 	{ timestamps: true }
+// );
+
 const User = mongoose.model('User', userSchema);
+
 module.exports = User;
