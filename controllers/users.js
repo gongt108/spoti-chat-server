@@ -34,9 +34,12 @@ router.get('/:id/allFriends', async (req, res) => {
 			});
 		}
 
-		const friendsList = [...saved1, ...saved2];
-		// console.log(friendsList);
-		res.send(friendsList);
+		// const friendsList = [...saved1, ...saved2];
+
+		const friendsData = await User.find({
+			_id: { $in: [...saved1, ...saved2] },
+		});
+		res.send(friendsData);
 	} catch (error) {
 		console.error(error);
 	}
