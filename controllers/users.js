@@ -34,6 +34,7 @@ router.post('/signup', async (req, res) => {
 			password: req.body.password,
 			bio: req.body.bio,
 			dateOfBirth: req.body.dateOfBirth,
+			friends: [],
 		});
 
 		res.send(newUser);
