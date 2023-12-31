@@ -42,7 +42,11 @@ router.post('/new', async (req, res) => {
 			spotifyId: req.body.spotifyId, // get from API link
 			content: req.body.content,
 			likeCount: 0,
-			commentCount: 0,
+			// commentCount: 0,
+			trackName: req.body.trackName,
+			albumName: req.body.albumName,
+			artistName: req.body.artistName,
+			imgUrl: req.body.imgUrl,
 		});
 
 		res.send(newPost);

@@ -42,11 +42,19 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { User, Post } = require('./models');
+// const { User, Post } = require('./models');
 const authRoutes = require('./routes/authRoutes'); // Import the authentication routes
 
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
+
+// import all models
+const User = require('./users');
+const Favorite = require('./favorites');
+const Friend = require('./friends');
+const Post = require('./posts');
+
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -70,11 +78,16 @@ db.on('error', (err) => {
   console.log(`Database error: `, err);
 });
 
+
 // Use the authentication routes
 app.use('/api/auth', authRoutes);
 
 // Your existing routes for models (User, Post) can go here
-
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// export models
+module.exports = app;
+
