@@ -46,22 +46,22 @@ router.get('/:id/allFriends', async (req, res) => {
 });
 
 // GET all favs
-router.get('/:id/bookmarks', async (req, res) => {
-	try {
-		const foundUser = await User.findById(req.params.id);
-		if (!foundUser) return res.json({ message: 'User not found' });
+// router.get('/:id/bookmarks', async (req, res) => {
+// 	try {
+// 		const foundUser = await User.findById(req.params.id);
+// 		if (!foundUser) return res.json({ message: 'User not found' });
 
-		console.log(foundUser.favorites);
+// 		console.log(foundUser.favorites);
 
-		const favorites = await Favorite.find({
-			_id: { $in: foundUser.favorites },
-		});
-		console.log(favorites);
-		res.send(favorites);
-	} catch (error) {
-		console.error(error);
-	}
-});
+// 		const favorites = await Favorite.find({
+// 			_id: { $in: foundUser.favorites },
+// 		});
+// 		console.log(favorites);
+// 		res.send(favorites);
+// 	} catch (error) {
+// 		console.error(error);
+// 	}
+// });
 
 // Get a User
 router.get('/:id', async (req, res) => {
@@ -94,31 +94,32 @@ router.post('/signup', async (req, res) => {
 	}
 });
 
-router.post('/:id/save', async (req, res) => {
-	try {
-		const foundUser = await User.findById(req.params.id);
-		if (!foundUser) return res.json({ message: 'User not found' });
-		const existingFavorite = await Favorite.find({
-			_id: { $in: foundUser.favorites },
-			spotifyId: req.body.spotifyId,
-		});
+// router.post('/:id/save', async (req, res) => {
+// 	try {
+// 		const foundUser = await User.findById(req.params.id);
+// 		if (!foundUser) return res.json({ message: 'User not found' });
+// 		const existingFavorite = await Favorite.find({
+// 			_id: { $in: foundUser.favorites },
+// 			spotifyId: req.body.spotifyId,
+// 		});
 
-		if (existingFavorite.length > 0) return res.send('Item previously saved.');
+// 		if (existingFavorite.length > 0) return res.send('Item previously saved.');
 
-		const newFavorite = await Favorite.create({
-			// userId: req.body.id,
-			favoriteType: req.body.favoriteType,
-			spotifyId: req.body.spotifyId, // get from API link
-			name: req.body.name,
-			imgUrl: req.body.imgUrl,
-		});
-		foundUser.favorites = [...foundUser.favorites, newFavorite._id];
-		await foundUser.save();
-		res.send(foundUser);
-	} catch (error) {
-		console.error(error);
-	}
-});
+// 		const newFavorite = await Favorite.create({
+// 			// userId: req.body.id,
+// 			type: req.body.type,
+// 			spotifyId: req.body.spotifyId, // get from API link
+// 			name: req.body.name,
+// 			imgUrl: req.body.imgUrl,
+// 			isFavorited: true,
+// 		});
+// 		foundUser.favorites = [...foundUser.favorites, newFavorite._id];
+// 		await foundUser.save();
+// 		res.send(foundUser);
+// 	} catch (error) {
+// 		console.error(error);
+// 	}
+// });
 
 router.post('/:id/friend', async (req, res) => {
 	try {
