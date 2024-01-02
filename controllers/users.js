@@ -165,6 +165,7 @@ router.put('/:id', async (req, res) => {
 			password: req.body.password,
 			bio: req.body.bio,
 			dateOfBirth: req.body.dateOfBirth,
+			userImg: req.body.userImg,
 		});
 		const updatedUser = await User.findById(foundUser._id);
 		res.send(updatedUser);

@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const socket = require('socket.io');
 const SpotifyWebApi = require('spotify-web-api-node');
 
 // create app
@@ -76,6 +77,29 @@ app.post('/login', (req, res) => {
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
 	console.log(`Server connected to PORT: ${PORT}`);
+});
+
+const io = socket(server, {
+	cors: {
+		origin: 'http://localhost:3000',
+		credentials: true,
+	},
+});
+
+global.onlineUsers = new Map();
+
+io.on('connection', (socket) => {
+	global.chatSocket = socket;
+	socket.on('add-user', (userId) => {
+		onlineUsers.set(userId, socket.id);
+	});
+
+	socket.on('send-msg', (data) => {
+		const sendUserSocket = onlineUsers.get(data.to);
+		if (sendUserSocket) {
+			socket.to(sendUserSocket).emit('msg-receive', data.msg);
+		}
+	});
 });
 
 module.exports = app;

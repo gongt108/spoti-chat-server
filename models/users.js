@@ -24,6 +24,7 @@ let userSchema = new mongoose.Schema(
 		},
 		bio: String,
 		dateOfBirth: String,
+		userImage: String,
 		searchHistory: [String],
 		favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Favorite' }],
 		// friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Friend' }],
