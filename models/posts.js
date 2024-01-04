@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 let postSchema = new mongoose.Schema(
 	{
 		userId: String,
+		trackName: String,
+		albumName: String,
+		artistName: String,
 		postType: String,
 		spotifyId: String,
 		content: String,
-		likeCount: Number,
-		commentCount: Number,
+		imgUrl: String,
 	},
 	{ timestamps: true }
 );
