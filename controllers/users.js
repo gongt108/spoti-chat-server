@@ -14,10 +14,12 @@ router.get('/', async (req, res) => {
 });
 
 // Get a User
-router.get('/:id', async (req, res) => {
+router.get('/:email', async (req, res) => {
 	try {
-		const foundUser = await User.findById(req.params.id);
+		const foundUser = await User.findOne({email: req.params.email});
+		console.log(req.params.email)
 		res.send(foundUser);
+
 	} catch (error) {
 		console.error(error);
 	}

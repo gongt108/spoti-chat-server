@@ -42,21 +42,21 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { User, Post } = require('./models');
-const authRoutes = require('./routes/authRoutes'); // Import the authentication routes
+const { User } = require('./users');
+const{ Post } = require('./posts')
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+// const app = express();
+// const PORT = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(bodyParser.json());
+// app.use(cors());
+// app.use(bodyParser.json());
 
 // connect to the database
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
+// mongoose.connect(process.env.MONGO_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+//
 // create connection object
 const db = mongoose.connection;
 
@@ -71,10 +71,12 @@ db.on('error', (err) => {
 });
 
 // Use the authentication routes
-app.use('/api/auth', authRoutes);
+//  app.use('/ap/auth', authRoutes);
 
 // Your existing routes for models (User, Post) can go here
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
+
+module.exports = {User,Post}
