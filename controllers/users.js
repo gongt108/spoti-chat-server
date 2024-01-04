@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const { User } = require('../models');
 
 // Get ALL Users
@@ -17,7 +16,7 @@ router.get('/', async (req, res) => {
 router.get('/:email', async (req, res) => {
 	try {
 		const foundUser = await User.findOne({email: req.params.email});
-		console.log(req.params.email)
+		// console.log(req.params.email)
 		res.send(foundUser);
 
 	} catch (error) {
