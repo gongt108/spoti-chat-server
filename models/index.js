@@ -7,7 +7,6 @@ const Favorite = require('./favorites');
 const Friend = require('./friends');
 const Post = require('./posts');
 
-// console.log('mongo uri =>', process.env.MONGO_URI);
 
 // connect to the database
 mongoose.connect(process.env.MONGO_URI, {
@@ -33,6 +32,7 @@ db.on('error', (err) => {
 	console.log(`Database error: `, err);
 });
 
+
 // export models
 module.exports = {
 	User,
@@ -40,3 +40,4 @@ module.exports = {
 	Favorite,
 	Friend,
 };
+

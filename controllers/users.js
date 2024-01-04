@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+
 const { User, Favorite, Friend } = require('../models');
+
 
 // Get ALL Users
 router.get('/', async (req, res) => {
@@ -64,10 +66,11 @@ router.get('/:id/bookmarks', async (req, res) => {
 });
 
 // Get a User
-router.get('/:id', async (req, res) => {
+router.get('/:email', async (req, res) => {
 	try {
-		const foundUser = await User.findById(req.params.id);
+		const foundUser = await User.findOne({email: req.params.email});
 		res.send(foundUser);
+
 	} catch (error) {
 		console.error(error);
 	}
