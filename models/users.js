@@ -13,10 +13,12 @@ let userSchema = new mongoose.Schema(
 		username: {
 			type: String,
 			required: true,
+			unique: true,
 		},
 		email: {
 			type: String,
 			required: true,
+			unique: true,
 		},
 		password: {
 			type: String,
@@ -24,9 +26,8 @@ let userSchema = new mongoose.Schema(
 		},
 		bio: String,
 		dateOfBirth: String,
-		searchHistory: [String],
+		userImage: String,
 		favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Favorite' }],
-		// friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Friend' }],
 	},
 	{ timestamps: true }
 );

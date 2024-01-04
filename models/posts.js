@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 let postSchema = new mongoose.Schema(
 	{
 		userId: String,
-		trackName: String,
+		name: String,
 		albumName: String,
 		artistName: String,
 		postType: String,
