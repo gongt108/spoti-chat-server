@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { User, Favorite, Friend } = require('../models');
+const { User, Favorite, Friend, Chat } = require('../models');
 
 // Get ALL Users
 router.get('/', async (req, res) => {
@@ -64,9 +64,9 @@ router.get('/:id/allFriends', async (req, res) => {
 // });
 
 // Get a User
-router.get('/:id', async (req, res) => {
+router.get('/:email', async (req, res) => {
 	try {
-		const foundUser = await User.findById(req.params.id);
+		const foundUser = await User.findOne({ email: req.params.email });
 		res.send(foundUser);
 	} catch (error) {
 		console.error(error);
@@ -148,7 +148,12 @@ router.post('/:id/friend', async (req, res) => {
 			user2: user2._id,
 		});
 
-		res.send(newFriendRel);
+		const newChatroom = await Chat.create({
+			users: [user1._id, user2._id], // get from useAuth
+			messages: [],
+		});
+
+		res.send(newChatroom);
 	} catch (error) {
 		console.error(error);
 	}

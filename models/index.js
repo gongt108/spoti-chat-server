@@ -6,6 +6,8 @@ const User = require('./users');
 const Favorite = require('./favorites');
 const Friend = require('./friends');
 const Post = require('./posts');
+const Chat = require('./chats');
+const Message = require('./messages');
 
 // console.log('mongo uri =>', process.env.MONGO_URI);
 
@@ -39,4 +41,6 @@ module.exports = {
 	Post,
 	Favorite,
 	Friend,
+	Chat,
+	Message,
 };
