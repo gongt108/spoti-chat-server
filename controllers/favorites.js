@@ -13,22 +13,22 @@ router.get('/', async (req, res) => {
 	}
 });
 
-// router.get('/:id/bookmarks', async (req, res) => {
-// 	try {
-// 		const foundUser = await User.findById(req.params.id);
-// 		if (!foundUser) return res.json({ message: 'User not found' });
+router.get('/:userId', async (req, res) => {
+	try {
+		const foundUser = await User.findById(req.params.userId);
+		if (!foundUser) return res.json({ message: 'User not found' });
 
-// 		console.log(foundUser.favorites);
+		console.log(foundUser.favorites);
 
-// 		const favorites = await Favorite.find({
-// 			_id: { $in: foundUser.favorites },
-// 		});
-// 		console.log(favorites);
-// 		res.send(favorites);
-// 	} catch (error) {
-// 		console.error(error);
-// 	}
-// });
+		const favorites = await Favorite.find({
+			_id: { $in: foundUser.favorites },
+		});
+		console.log(favorites);
+		res.send(favorites);
+	} catch (error) {
+		console.error(error);
+	}
+});
 
 // POST favorites
 router.post('/:id/save', async (req, res) => {
