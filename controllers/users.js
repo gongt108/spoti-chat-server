@@ -13,60 +13,19 @@ router.get('/', async (req, res) => {
 	}
 });
 
-// GET all friends
-router.get('/:id/allFriends', async (req, res) => {
+// Get a User
+router.get('/:email', async (req, res) => {
 	try {
-		let saved1 = await Friend.find({
-			user1: req.params.id,
-		});
-		if (saved1) {
-			saved1 = saved1.map((friend) => {
-				return friend.user2;
-			});
-		}
-		// if (foundFriend.length === 0) return res.send('Friend already removed');
-		let saved2 = await Friend.find({
-			user2: req.params.id,
-		});
-		if (saved2) {
-			saved2 = saved2.map((friend) => {
-				return friend.user1;
-			});
-		}
-
-		// const friendsList = [...saved1, ...saved2];
-
-		const friendsData = await User.find({
-			_id: { $in: [...saved1, ...saved2] },
-		});
-		res.send(friendsData);
+		const foundUser = await User.findOne({ email: req.params.email });
+		res.send(foundUser);
 	} catch (error) {
 		console.error(error);
 	}
 });
 
-// GET all favs
-// router.get('/:id/bookmarks', async (req, res) => {
-// 	try {
-// 		const foundUser = await User.findById(req.params.id);
-// 		if (!foundUser) return res.json({ message: 'User not found' });
-
-// 		console.log(foundUser.favorites);
-
-// 		const favorites = await Favorite.find({
-// 			_id: { $in: foundUser.favorites },
-// 		});
-// 		console.log(favorites);
-// 		res.send(favorites);
-// 	} catch (error) {
-// 		console.error(error);
-// 	}
-// });
-
-// Get a User
-router.get('/:email', async (req, res) => {
+router.get('/id/:id', async (req, res) => {
 	try {
-		const foundUser = await User.findOne({ email: req.params.email });
+		const foundUser = await User.findById(req.params.id);
 		res.send(foundUser);
 	} catch (error) {
 		console.error(error);
@@ -89,71 +48,6 @@ router.post('/signup', async (req, res) => {
 		});
 
 		res.send(newUser);
-	} catch (error) {
-		console.error(error);
-	}
-});
-
-// router.post('/:id/save', async (req, res) => {
-// 	try {
-// 		const foundUser = await User.findById(req.params.id);
-// 		if (!foundUser) return res.json({ message: 'User not found' });
-// 		const existingFavorite = await Favorite.find({
-// 			_id: { $in: foundUser.favorites },
-// 			spotifyId: req.body.spotifyId,
-// 		});
-
-// 		if (existingFavorite.length > 0) return res.send('Item previously saved.');
-
-// 		const newFavorite = await Favorite.create({
-// 			// userId: req.body.id,
-// 			type: req.body.type,
-// 			spotifyId: req.body.spotifyId, // get from API link
-// 			name: req.body.name,
-// 			imgUrl: req.body.imgUrl,
-// 			isFavorited: true,
-// 		});
-// 		foundUser.favorites = [...foundUser.favorites, newFavorite._id];
-// 		await foundUser.save();
-// 		res.send(foundUser);
-// 	} catch (error) {
-// 		console.error(error);
-// 	}
-// });
-
-router.post('/:id/friend', async (req, res) => {
-	try {
-		if (req.params.id === req.body.userId)
-			return res.send('Cannot add yourself');
-
-		const user1 = await User.findById(req.params.id);
-		const user2 = await User.findById(req.body.userId);
-
-		const foundFriend = await Friend.find({
-			$or: [
-				{
-					user1: req.params.id,
-					user2: req.body.userId,
-				},
-				{
-					user2: req.params.id,
-					user1: req.body.userId,
-				},
-			],
-		});
-		if (foundFriend.length) return res.send('Friend already added');
-
-		const newFriendRel = await Friend.create({
-			user1: user1._id,
-			user2: user2._id,
-		});
-
-		const newChatroom = await Chat.create({
-			users: [user1._id, user2._id], // get from useAuth
-			messages: [],
-		});
-
-		res.send(newChatroom);
 	} catch (error) {
 		console.error(error);
 	}

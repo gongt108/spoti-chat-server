@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
 // import controllers
 app.use('/posts', require('./controllers/posts'));
 app.use('/users', require('./controllers/users'));
+app.use('/friends', require('./controllers/friends'));
 app.use('/favorites', require('./controllers/favorites'));
 app.use('/chats', require('./controllers/chats'));
 app.use('/messages', require('./controllers/messages'));

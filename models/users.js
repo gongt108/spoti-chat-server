@@ -28,6 +28,7 @@ let userSchema = new mongoose.Schema(
 		dateOfBirth: String,
 		userImage: String,
 		favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Favorite' }],
+		friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Friend' }],
 	},
 	{ timestamps: true }
 );
