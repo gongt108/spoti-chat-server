@@ -6,7 +6,7 @@ const { Post } = require('../models');
 // GET all posts
 router.get('/', async (req, res) => {
 	try {
-		const postData = await Post.find().limit(20);
+		const postData = await Post.find().sort({ createdAt: -1 }).limit(20);
 		res.send(postData);
 	} catch (error) {
 		console.error(error);
@@ -37,13 +37,13 @@ router.get('/', async (req, res) => {
 router.post('/new', async (req, res) => {
 	try {
 		const newPost = await Post.create({
-			userId: req.body.user, // get from useAuth
-			postType: req.body.postType,
+			userId: req.body.userId, // get from useAuth
+			postType: req.body.type,
 			spotifyId: req.body.spotifyId, // get from API link
 			content: req.body.content,
 			likeCount: 0,
 			// commentCount: 0,
-			trackName: req.body.trackName,
+			name: req.body.name,
 			albumName: req.body.albumName,
 			artistName: req.body.artistName,
 			imgUrl: req.body.imgUrl,

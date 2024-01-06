@@ -1,14 +1,11 @@
 require('dotenv').config();
-const faker = require('@faker-js/faker');
 const express = require('express');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const socket = require('socket.io');
 const SpotifyWebApi = require('spotify-web-api-node');
-const session = require('express-session');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 
 // create app
 const app = express();
@@ -20,51 +17,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(
-	session({
-		secret: 'your-secret-key', // Replace with a secure secret
-		resave: false,
-		saveUninitialized: false,
-	})
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Passport strategy (you can put this in a separate file if needed)
-// passport.use(
-// 	new LocalStrategy(
-// 		{
-// 			usernameField: 'email',
-// 			passwordField: 'password',
-// 		},
-// 		(email, password, cb) => {
-// 			db.user
-// 				.findOne({ email })
-// 				.then((user) => {
-// 					if (!user || !user.validPassword(password)) {
-// 						return cb(null, false);
-// 					}
-
-// 					// Your additional authentication logic goes here
-// 					// For example, check user roles, update last login timestamp, etc.
-
-// 					return cb(null, user);
-// 				})
-// 				.catch((err) => cb(err));
-// 		}
-// 	)
-// );
-
-// // Passport serialization and deserialization (you can put this in a separate file if needed)
-// passport.serializeUser((user, cb) => {
-// 	cb(null, user.id);
-// });
-
-// passport.deserializeUser((id, cb) => {
-// 	// Retrieve user from the database based on the id
-// 	// This may vary based on your database setup
-// });
 
 app.get('/', (req, res) => {
 	return res.json({ message: 'Welcome to the Spoti-Chat App' });
@@ -73,6 +25,7 @@ app.get('/', (req, res) => {
 // import controllers
 app.use('/posts', require('./controllers/posts'));
 app.use('/users', require('./controllers/users'));
+app.use('/friends', require('./controllers/friends'));
 app.use('/favorites', require('./controllers/favorites'));
 app.use('/chats', require('./controllers/chats'));
 app.use('/messages', require('./controllers/messages'));
@@ -127,6 +80,59 @@ app.post('/login', (req, res) => {
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
 	console.log(`Server connected to PORT: ${PORT}`);
+});
+
+// Real time chat using socket.io
+const http = require('http');
+const server = http.createServer(app);
+server.listen(4000, () => console.log(`Listening on port ${PORT}`));
+
+// Create an io server and allow for CORS from http://localhost:3000 with GET and POST methods
+const io = socket(server, {
+	cors: {
+		origin: '*',
+		// credentials: true,
+		methods: ['GET', 'POST'],
+	},
+});
+
+const CHAT_BOT = 'ChatBot';
+let chatRoom = '';
+let allUsers = [];
+
+// global.onlineUsers = new Map();
+
+// Listen for when the client connects via socket.io-client
+io.on('connection', (socket) => {
+	// global.chatSocket = socket;
+	// socket.on('add-user', (userId) => {
+	// 	onlineUsers.set(userId, socket.id);
+	// });
+	// chatRoom = room;
+	// allUsers.push({ id: socket.id, username, room });
+	// chatRoomUsers = allUsers.filter((user) => user.room === room);
+	// socket.to(room).emit('chatroom_users', chatRoomUsers);
+	// socket.emit('chatroom_users', chatRoomUsers);
+	console.log(`User connected ${socket.id}`);
+
+	socket.on('join_room', (room, cb) => {
+		socket.join(room);
+		cb(`Joined ${room}`);
+	});
+	socket.on('sendMessage', (message) => {
+		io.emit('message', message);
+	});
+
+	socket.on('disconnect', () => {
+		console.log(`Socket ${socket.id} disconnected`);
+	});
+
+	// 	socket.on('send-msg', (data) => {
+	// 		const sendUserSocket = onlineUsers.get(data.to);
+	// 		if (sendUserSocket) {
+	// 			socket.to(sendUserSocket).emit('msg-receive', data.msg);
+	// 		}
+	// 	});
 });
 
 module.exports = app;

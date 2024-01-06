@@ -10,7 +10,7 @@ let favoriteSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		favoriteType: {
+		type: {
 			type: String,
 			required: true,
 		},
@@ -18,7 +18,10 @@ let favoriteSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		albumName: String,
+		artistName: String,
 		imgUrl: String,
+		isFavorited: Boolean,
 	},
 	{ timestamps: true }
 );

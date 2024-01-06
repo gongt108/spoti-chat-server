@@ -6,6 +6,8 @@ const User = require('./users');
 const Favorite = require('./favorites');
 const Friend = require('./friends');
 const Post = require('./posts');
+const Chat = require('./chats');
+const Message = require('./messages');
 
 
 // connect to the database
@@ -39,5 +41,7 @@ module.exports = {
 	Post,
 	Favorite,
 	Friend,
+	Chat,
+	Message,
 };
 
