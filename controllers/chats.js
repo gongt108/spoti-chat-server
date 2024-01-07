@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-const { User, Chat } = require('../models');
+const { User, Chat, Message } = require('../models');
 
 // GET all posts
 router.get('/', async (req, res) => {
@@ -30,13 +30,14 @@ router.get('/:id', async (req, res) => {
 		const user2 = await User.findById(foundChatroom.users[1]);
 		const user2Name = `${user2.firstName} ${user2.lastName}`;
 
-		res.send({
-			messages: foundChatroom.messages,
-			user1Id: user1._id,
-			user2Id: user2._id,
+		const messages = await Message.find({
+			_id: {
+				$in: foundChatroom.messages,
+			},
+		});
 
-			user1Name: user1Name,
-			user2Name: user2Name,
+		res.send({
+			messages: messages,
 		});
 	} catch (error) {
 		console.error(error);

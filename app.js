@@ -114,12 +114,13 @@ io.on('connection', (socket) => {
 	// socket.emit('chatroom_users', chatRoomUsers);
 	console.log(`User connected ${socket.id}`);
 
-	socket.on('join_room', (room, cb) => {
+	socket.on('join-room', (room) => {
 		socket.join(room);
-		cb(`Joined ${room}`);
+		console.log(`User joined room ${room}`);
 	});
-	socket.on('sendMessage', (message) => {
-		io.emit('message', message);
+	socket.on('send-message', (message, room) => {
+		socket.emit('receive-message', message);
+		console.log(room);
 	});
 
 	socket.on('disconnect', () => {

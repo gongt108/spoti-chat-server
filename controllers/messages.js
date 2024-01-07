@@ -18,6 +18,7 @@ router.post('/:chatroomId/new', async (req, res) => {
 	try {
 		const newMessage = await Message.create({
 			sender: req.body.userId, // get from useAuth
+			senderName: req.body.senderName,
 			content: req.body.content,
 			chatroomId: req.body.chatroomId,
 		});
