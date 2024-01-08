@@ -48,8 +48,22 @@ router.get('/:id', async (req, res) => {
 // POST a new chatroom
 router.post('/new', async (req, res) => {
 	try {
+		const foundChatroom = await Chat.findOne({
+			users: {
+				$all: [
+					mongoose.Types.ObjectId.createFromHexString(req.body.friendId),
+					mongoose.Types.ObjectId.createFromHexString(req.body.userId),
+				],
+			},
+		});
+
+		if (foundChatroom) return res.status(409).send('Chatroom already exists');
+
 		const newChatroom = await Chat.create({
-			users: [req.body.friendId, req.body.userId], // get from useAuth
+			users: [
+				mongoose.Types.ObjectId.createFromHexString(req.body.friendId),
+				mongoose.Types.ObjectId.createFromHexString(req.body.userId),
+			], // get from useAuth
 			messages: [],
 		});
 
@@ -58,19 +72,6 @@ router.post('/new', async (req, res) => {
 		console.error(error);
 	}
 });
-
-// PUT update post by ObjectId
-// router.put('/:id', async (req, res) => {
-// 	try {
-// 		const foundPost = await Chat.findByIdAndUpdate(req.params.id, {
-// 			$push: { messages: req.body.content },
-// 		});
-// 		const updatedPost = await Chat.findById(foundPost._id);
-// 		res.send(updatedPost);
-// 	} catch (error) {
-// 		console.error(error);
-// 	}
-// });
 
 router.delete('/:id', async (req, res) => {
 	try {

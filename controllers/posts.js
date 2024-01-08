@@ -13,26 +13,6 @@ router.get('/', async (req, res) => {
 	}
 });
 
-// GET post by search
-// router.get('/search', async (req, res) => {
-// 	try {
-// 		let foundPost = await Post.findById(req.query.searchTerm);
-// 		res.send(foundPost);
-// 	} catch (error) {
-// 		console.error(error);
-// 	}
-// });
-
-// GET one post
-// router.get('/:id', async (req, res) => {
-// 	try {
-// 		const foundPost = await Post.findById(req.params.id);
-// 		res.send(foundPost);
-// 	} catch (error) {
-// 		console.error(error);
-// 	}
-// });
-
 // POST a new post
 router.post('/new', async (req, res) => {
 	try {

@@ -33,15 +33,4 @@ router.post('/:chatroomId/new', async (req, res) => {
 	}
 });
 
-// delete message
-router.delete('/:id', async (req, res) => {
-	try {
-		await Message.findByIdAndRemove(req.params.id);
-		// const allPosts = await Message.find();
-		// res.send(allPosts);
-	} catch (error) {
-		console.error(error);
-	}
-});
-
 module.exports = router;
