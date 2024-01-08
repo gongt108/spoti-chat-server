@@ -18,7 +18,7 @@ router.get('/:userId', async (req, res) => {
 		const foundUser = await User.findById(req.params.userId);
 		if (!foundUser) return res.json({ message: 'User not found' });
 
-		console.log(foundUser.favorites);
+		// console.log(foundUser.favorites);
 
 		const favorites = await Favorite.find({
 			_id: { $in: foundUser.favorites },
@@ -40,7 +40,8 @@ router.post('/:id/save', async (req, res) => {
 			spotifyId: req.body.spotifyId,
 		});
 
-		if (existingFavorite.length > 0) return res.send('Item previously saved.');
+		if (existingFavorite.length > 0)
+			return res.status(409).send('Item previously saved.');
 
 		const newFavorite = await Favorite.create({
 			// userId: req.body.id,

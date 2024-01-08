@@ -38,6 +38,7 @@ router.get('/:id', async (req, res) => {
 
 		res.send({
 			messages: messages,
+			users: foundChatroom.users,
 		});
 	} catch (error) {
 		console.error(error);
