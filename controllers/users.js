@@ -23,7 +23,7 @@ router.get('/:email', async (req, res) => {
 	}
 });
 
-router.get('/id/:id', async (req, res) => {
+router.get('/:id/id', async (req, res) => {
 	try {
 		const foundUser = await User.findById(req.params.id);
 		res.send(foundUser);
