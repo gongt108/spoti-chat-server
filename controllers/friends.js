@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
 router.post('/:id/add', async (req, res) => {
 	try {
 		if (req.params.id === req.body.userId)
-			return res.send('Cannot add yourself');
+			return res.status(409).send('Cannot add yourself');
 
 		const user1 = await User.findById(req.params.id);
 		const user2 = await User.findById(req.body.userId);
@@ -36,7 +36,7 @@ router.post('/:id/add', async (req, res) => {
 				],
 			},
 		});
-		if (foundFriend) return res.send('Friend already added');
+		if (foundFriend) return res.status(409).send('Friend already added');
 
 		const newFriendRel = await Friend.create({
 			users: [
@@ -66,6 +66,48 @@ router.post('/:id/add', async (req, res) => {
 		});
 
 		res.send(newFriendRel);
+	} catch (error) {
+		console.error(error);
+	}
+});
+
+router.delete('/:id/unfriend', async (req, res) => {
+	try {
+		const foundFriend = await Friend.find({
+			$or: [
+				{
+					user1: req.params.id,
+					user2: req.body.userId,
+				},
+				{
+					user2: req.params.id,
+					user1: req.body.userId,
+				},
+			],
+		});
+		if (foundFriend.length === 0) return res.send('Friend already removed');
+		// const saved2 = await Friend.find({
+		// 	user2: req.params.id,
+		// 	user1: req.body.userId,
+		// });
+		// const friendsList = [...saved1, ...saved2];
+		// console.log(friendsList);
+		await Friend.findByIdAndRemove(foundFriend[0]._id);
+		// once you remove user, show all remaining users
+		const allFriendRels = await Friend.find();
+		res.send(allFriendRels);
+
+		// if (foundUser.friends.includes(req.body.userId)) {
+		// 	const foundFriend = await Friend.findOne({ userId: req.body.userId });
+		// 	// console.log(foundFriend);
+		// 	foundUser.friends = foundUser.friends.filter((friend) => {
+		// 		console.log(friend !== foundFriend._id);
+		// 		return friend !== foundFriend.userId;
+		// 	});
+		// 	await foundUser.save();
+		// 	res.send(foundUser);
+		// }
+		// if (!foundFriend) return res.json({ message: 'No longer following user.' });
 	} catch (error) {
 		console.error(error);
 	}
