@@ -14,18 +14,18 @@ router.get('/', async (req, res) => {
 });
 
 // Get a User
-router.get('/:email', async (req, res) => {
+router.get('/:id/id', async (req, res) => {
 	try {
-		const foundUser = await User.findOne({ email: req.params.email });
+		const foundUser = await User.findById(req.params.id);
 		res.send(foundUser);
 	} catch (error) {
 		console.error(error);
 	}
 });
 
-router.get('/:id/id', async (req, res) => {
+router.get('/:email', async (req, res) => {
 	try {
-		const foundUser = await User.findById(req.params.id);
+		const foundUser = await User.findOne({ email: req.params.email });
 		res.send(foundUser);
 	} catch (error) {
 		console.error(error);
