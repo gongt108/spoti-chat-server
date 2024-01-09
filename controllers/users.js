@@ -46,6 +46,7 @@ router.post('/signup', async (req, res) => {
 			friends: [],
 			favorites: [],
 		});
+		console.log(newUser);
 
 		res.send(newUser);
 	} catch (error) {

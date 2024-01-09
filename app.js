@@ -103,15 +103,6 @@ let allUsers = [];
 
 // Listen for when the client connects via socket.io-client
 io.on('connection', (socket) => {
-	// global.chatSocket = socket;
-	// socket.on('add-user', (userId) => {
-	// 	onlineUsers.set(userId, socket.id);
-	// });
-	// chatRoom = room;
-	// allUsers.push({ id: socket.id, username, room });
-	// chatRoomUsers = allUsers.filter((user) => user.room === room);
-	// socket.to(room).emit('chatroom_users', chatRoomUsers);
-	// socket.emit('chatroom_users', chatRoomUsers);
 	console.log(`User connected ${socket.id}`);
 
 	socket.on('join-room', (room) => {
@@ -126,13 +117,6 @@ io.on('connection', (socket) => {
 	socket.on('disconnect', () => {
 		console.log(`Socket ${socket.id} disconnected`);
 	});
-
-	// 	socket.on('send-msg', (data) => {
-	// 		const sendUserSocket = onlineUsers.get(data.to);
-	// 		if (sendUserSocket) {
-	// 			socket.to(sendUserSocket).emit('msg-receive', data.msg);
-	// 		}
-	// 	});
 });
 
 module.exports = app;

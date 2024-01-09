@@ -4,6 +4,8 @@ const request = require('supertest');
 const expect = require('chai').expect;
 // import faker
 const { faker } = require('@faker-js/faker');
+
+let userId;
 let randomEmail;
 // test POST route
 describe('POST /users', () => {
@@ -150,7 +152,6 @@ describe('GET /users', () => {
 // 			});
 // 	});
 // });
-let userId;
 // DELETE
 describe('DELETE /users/:id', () => {
 	// create a new user

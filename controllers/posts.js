@@ -13,6 +13,17 @@ router.get('/', async (req, res) => {
 	}
 });
 
+router.get('/:userId', async (req, res) => {
+	try {
+		const postData = await Post.find({ userId: req.params.userId })
+			.sort({ createdAt: -1 })
+			.limit(20);
+		res.send(postData);
+	} catch (error) {
+		console.error(error);
+	}
+});
+
 // POST a new post
 router.post('/new', async (req, res) => {
 	try {
