@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const socket = require('socket.io');
 const SpotifyWebApi = require('spotify-web-api-node');
+const REDIRECT_URI = process.env.REDIRECT_URI;
 
 // create app
 const app = express();
@@ -18,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-	return res.json({ message: process.env.REDIRECT_URI });
+	return res.json({ message: REDIRECT_URI });
 });
 
 // import controllers
@@ -32,7 +33,7 @@ app.use('/messages', require('./controllers/messages'));
 app.post('/refresh', (req, res) => {
 	const refreshToken = req.body.refreshToken;
 	const spotifyApi = new SpotifyWebApi({
-		redirectUri: process.env.REDIRECT_URI,
+		redirectUri: REDIRECT_URI,
 		clientId: process.env.CLIENT_ID,
 		clientSecret: process.env.CLIENT_SECRET,
 		refreshToken,
@@ -57,7 +58,7 @@ app.post('/refresh', (req, res) => {
 app.post('/login', (req, res) => {
 	const code = req.body.code;
 	const spotifyApi = new SpotifyWebApi({
-		redirectUri: process.env.REDIRECT_URI,
+		redirectUri: REDIRECT_URI,
 		clientId: process.env.SPOTIFY_CLIENT_ID,
 		clientSecret: process.env.SPOTIFY_SECRET,
 	});
