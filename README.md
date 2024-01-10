@@ -1,88 +1,167 @@
-# mongoose-app
-Create Express API using Mongoose and more ...
+# `Spoti-chat`
 
-## Lab
-#### `1` Create a conditional that returns all users based off of `state`
+Share your love of music!
 
-#### `2` Create a `Vehicle` model with the following:
-   - [ ] make
-   - [ ] model
-   - [ ] type
-   - [ ] vin
-   - [ ] color
-   - [ ] fuel
+![Spoti-Chat](./images/HomePage.png)
 
-#### `3` Make a `createRandomVehicles` function and test function
-   - [ ] commit message
-```
-commit -m feat: add Vehicle model and createRandomVehicles function
-```
+## What is it?
 
-#### `4` Create a `/vehicles` route
+Spoti-Chat uses Spotify API, and allows you to do the following:
 
-#### `5` Create a `/vehicles/:field/:value` route
-   - [ ] Make conditionals with each field
-   - [ ] Add commit message
-```
-commit -m feat: add /vehicles and /vehicles/:field/:value route
-```
+- Listen to music
+- Search for songs
+- Search for Recommended songs
+- Add Search and Recommended songs to Favorites
+- Chat with your friends
 
-#### `6` Create a `Company` model with the following:
-   - [ ] name
-   - [ ] address ( location )
-   - [ ] city
-   - [ ] state
-   - [ ] zipCode
-         
-#### `7` Make a `createRandomCompany` function
-   - [ ] commit message
-```
-commit -m feat: add Company model and createRandomCompany function
-```
-#### `8` Create a `/companies` route
+## Installation Instructions
 
-#### `9` Create a `/companies/:field/:value` route
-   - [ ] Make conditionals with each field
-   - [ ] Add commit message
-```
-commit -m feat: add /companies and /companies/:field/:value route
-```
+1. Fork and clone this repository.
+2. Run `npm install` from your terminal while inside of the project's directory.
+   3A. Set up a `.env` file and add
+   `REDIRECT_URI=http://localhost:3000`
+   `SPOTIFY_CLIENT_ID=YOUR_SPOTIFY_CLIENT_ID`
+   `SPOTIFY_SECRET=YOUR_SPOTIFY_SECRET`
+   `MONGO_URI=mongodb+srv://MONGODB_USERNAME:MONGODB_PASSWORD@cluster0.j9iccj7.mongodb.net/`
+   3B. It's important to note that your Spotify API key comes from the Spotify Developer website `https://developer.spotify.com/`
+3. You don't have to create the database in the app because you're connecting through our URL.
+4. Run `npm run dev` on your front end with `http://localhost:3000/` in terminal
 
-#### `10` Create a `Airline` model with the following:
-   - [ ] aircraftType
-   - [ ] airline
-   - [ ] airplane
-   - [ ] airport
-   - [ ] flightNumber
-   - [ ] recordLocator
-   - [ ] seat
+## Navigating The Project
 
-#### `11` Make a `createRandomAirlines` function and test
+### Chats Routes
 
-#### `12` Create a `/airlines` route
+| Method | Path       | Location | Purpose           |
+| ------ | ---------- | -------- | ----------------- |
+| GET    | /chats     | chats.js | Find chatroom     |
+| GET    | /chats/:id | chats.js | Get chat messages |
+| POST   | /chats/new | chats.js | Create new Chat   |
+| DELETE | /chats/:id | chats.js | Delete chat       |
 
-#### `13` Create a `/airlines/:field/:value` route
-  - [ ] Make conditionals with each field
-  - [ ] Add commit message
+### Favorites Routes
 
-```
-commit -m feat: add Airlines model and createRandomAirlines function
-```
+| Method | Path                | Location     | Purpose                         |
+| ------ | ------------------- | ------------ | ------------------------------- |
+| GET    | /favorites          | favorites.js | Home page                       |
+| GET    | /favorites/:userId  | favorites.js | Find all of a users's favorites |
+| POST   | /favorites/:id/save | favorites.js | Create favorite                 |
+| DELETE | /favorites/:id      | favorites.js | Deletes favorite                |
 
-Create a `Commerce` model with the following:
-   - [ ] department
-   - [ ] price
-   - [ ] product
-   - [ ] productAdjective
-   - [ ] productDescription
-   - [ ] productMaterial
-   - [ ] productName
+### friends Routes
 
-Make a `createRandomCommerce` function
-commit message
-Create a `/commerce` route
-Create a `/commerce/:field/:value` route
-conditionals with each field
-```
-commit -m feat: add Commerce model and routes
-```
+| Method | Path             | Location   | Purpose                    |
+| ------ | ---------------- | ---------- | -------------------------- |
+| GET    | /friends/:id     | friends.js | Get all friends of an user |
+| POST   | /friends/:id/add | friends.js | Add new friend             |
+| DELETE | /friends/delete  | friends.js | Deletes friend             |
+
+### messages Routes
+
+| Method | Path                      | Location    | Purpose            |
+| ------ | ------------------------- | ----------- | ------------------ |
+| GET    | /messages                 | messages.js | Get all messages   |
+| POST   | /messages/:chatroomId/new | messages.js | Create new message |
+
+### posts Routes
+
+| Method | Path           | Location | Purpose                            |
+| ------ | -------------- | -------- | ---------------------------------- |
+| GET    | /posts         | posts.js | Get all posts                      |
+| GET    | /posts/:userId | posts.js | Get all posts from a specific user |
+| POST   | /posts/new     | posts.js | Create new post                    |
+| PUT    | /posts/:id     | posts.js | Edit post                          |
+| DELETE | /posts/:id     | posts.js | Deletes bookmark                   |
+
+### users Routes
+
+| Method | Path          | Location | Purpose            |
+| ------ | ------------- | -------- | ------------------ |
+| GET    | /users        | users.js | Find all users     |
+| GET    | /users/:id/id | users.js | Find user by id    |
+| GET    | /users/:email | users.js | Find user by email |
+| POST   | /users/signup | users.js | Create new user    |
+| PUT    | /users/:id    | users.js | Edit user          |
+| DELETE | /users/:id    | users.js | Delete user        |
+
+#### chats Model
+
+- **Description:** This model is used to store user created chats.
+- **Attributes:**
+  - **id:** Automatically generated by the Mongoose.
+  - **users:** id corresponding to an id in the user model. This tracks which users are in the chat.
+  - **messages:** id corresponding to an id in the message model. This tracks which messages were sent in the chat.
+  - **createdAt:** Automatically generated by the Mongoose.
+
+#### favorites Model
+
+- **Description:** This model is used to store user created favorite bookmarks
+- **Attributes:**
+
+  - **userId:** Stores user ID
+  - **name:** Stores name of track, album, or artist
+  - **albumName:** Stores album name
+  - **artistName:** Stores artist name
+  - **type:** stores the media type
+  - **spotifyId:** stores the Spotify ID
+  - **imgUrl:** Stores img URL
+  - **timestamps:** Stores time stamps
+
+  #### friends Model
+
+- **Description:** This model is used to store user friends
+- **Attributes:**
+
+  - **friendsSchema:** Contains the schema pulled using mongoose from the Mongo database
+  - **users:** id corresponding to an id in the user model. This tracks which users are friends
+
+  #### index Model
+
+- **Description:** This model is used to store the homepage content
+- **Attributes:**
+
+  - **User:** Stores user data for the path ./users
+  - **Post:** Stores user data for the path ./favorites
+  - **Favorite:** Stores user data for the path ./friends
+  - **Friend:** Stores user data for the path ./posts
+  - **Chat:** Stores user data for the path ./chats
+  - **Message:** Stores user data for the path ./messages
+
+  #### messages Model
+
+- **Description:** This model is used to store messages between users
+- **Attributes:**
+
+  - **sender:** stroes the id of the sender
+  - **content:** stores the content inside the chat
+  - **chatroomID:** Assigns an id to the chat
+  - **timestamps:** Assigns timestamps
+
+  #### posts Model
+
+- **Description:** This model is used to store posts created by users
+- **Attributes:**
+
+  - **userId:** Stores user ID
+  - **name:** Stores user name
+  - **albumName:** Stores album name
+  - **artistName:** Stores artist name
+  - **postType:** stores the type of post by user
+  - **spotifyId:** stores the Spotify ID
+  - **imgUrl:** Stores img URL
+  - **timestamps:** Stores time stamps
+
+  #### users Model
+
+- **Description:** This model is used to store user information
+- **Attributes:**
+  - **firstName:** First name of the user
+  - **lastName:** Last name of the user
+  - **username:** User name
+  - **email:** email
+  - **password:** password
+  - **bio:** bio of the user
+  - **dateOfBirth:** date of birth of the user
+  - **userImage:** image of the user
+  - **favorites:** favorites data stored in Mongo
+  - **friends:** friends of the user
+  - **timestamps:** time stamps for the users
