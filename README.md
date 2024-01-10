@@ -96,7 +96,6 @@ Spoti-Chat uses Spotify API, and allows you to do the following:
 
 - **Description:** This model is used to store user created favorite bookmarks
 - **Attributes:**
-
   - **userId:** Stores user ID
   - **name:** Stores name of track, album, or artist
   - **albumName:** Stores album name
@@ -110,7 +109,6 @@ Spoti-Chat uses Spotify API, and allows you to do the following:
 
 - **Description:** This model is used to store user friends
 - **Attributes:**
-
   - **friendsSchema:** Contains the schema pulled using mongoose from the Mongo database
   - **users:** id corresponding to an id in the user model. This tracks which users are friends
 
@@ -118,7 +116,6 @@ Spoti-Chat uses Spotify API, and allows you to do the following:
 
 - **Description:** This model is used to store the homepage content
 - **Attributes:**
-
   - **User:** Stores user data for the path ./users
   - **Post:** Stores user data for the path ./favorites
   - **Favorite:** Stores user data for the path ./friends
@@ -130,7 +127,6 @@ Spoti-Chat uses Spotify API, and allows you to do the following:
 
 - **Description:** This model is used to store messages between users
 - **Attributes:**
-
   - **sender:** stroes the id of the sender
   - **content:** stores the content inside the chat
   - **chatroomID:** Assigns an id to the chat
@@ -140,7 +136,6 @@ Spoti-Chat uses Spotify API, and allows you to do the following:
 
 - **Description:** This model is used to store posts created by users
 - **Attributes:**
-
   - **userId:** Stores user ID
   - **name:** Stores user name
   - **albumName:** Stores album name
