@@ -2,7 +2,7 @@
 
 Share your love of music!
 
-![Spoti-Chat](/images/logo.png)
+![Spoti-Chat](./images/logo.png)
 
 ## What is it?
 
